@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams, Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -28,20 +29,22 @@ const ProductDetail = () => {
     <div className="detail-page">
       <Link to="/" className="back-btn">← Back to Products</Link>
       <div className="product-detail">
-        <img src={product.image} alt={product.title} />
-        <div>
+        <div className="product-image">
+          <img src={product.image} alt={product.title} />
+        </div>
+        <div className="product-info">
           <h2>{product.title}</h2>
-          <h3>${product.price}</h3>
-          <p>{product.description}</p>
           <span className="category">{product.category}</span>
-          <button onClick={() => alert(`Added "${product.title}" to cart!`)}>
-  Add to Cart
-</button>
-
+          <h3>${product.price}</h3>
+          <p className="desc">{product.description}</p>
+          <button onClick={() => toast.success(`Added "${product.title}" to cart`)}>
+             Add to Cart
+          </button>
         </div>
       </div>
     </div>
   );
+  
 };
 
 export default ProductDetail;
